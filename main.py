@@ -17,9 +17,11 @@ from PIL import Image
 client = commands.Bot(command_prefix=['#','<@970577992877223946> '], intents = nextcord.Intents.all())
 @client.event
 async def on_ready():
+  
     channel = client.get_channel(999541224975376486)
     print(f'{client.user} is ONLINE!')
     await channel.send('online')
+    await client.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name=f"#help"))
 
 client.remove_command("help")
 
