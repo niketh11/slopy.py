@@ -559,7 +559,7 @@ async def help(ctx):
             elif self.values[0] == "mod":
                 await interaction.response.send_message(embed = nextcord.Embed(title='<:moderation:990580070466846720>Modration',description = '```kick,Ban,lock,unlock,purge,mute,unmute```'))
             elif self.values[0] == "fun":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,hack,wanted,secret```'))                
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret```'))                
 
 
             elif self.values[0] == "action":
