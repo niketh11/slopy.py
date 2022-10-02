@@ -1,3 +1,4 @@
+import os
 import nextcord
 from nextcord.ext import commands
 import asyncio
@@ -922,6 +923,6 @@ async def secret(ctx):
 
 
 
+token = os.environ['token']
   
-  
-client.run("OTcwNTc3OTkyODc3MjIzOTQ2.GZ8raJ.uaVZrEoYBGZGS7yIFCM3O5meklFVSYsYSqRfns")
+client.run(token)
