@@ -1,0 +1,7 @@
+akinator==1.0.3
+humanfriendly==10.0
+nextcord==2.2.0
+Pillow==9.2.0
+requests==2.28.1
+tinydb==4.7.0
+utils==1.0.1
