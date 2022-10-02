@@ -14,7 +14,6 @@ from nextcord.ui import button, View, Button
 from nextcord.abc import GuildChannel
 from PIL import Image
 
-
 client = commands.Bot(command_prefix=['#','<@970577992877223946> '], intents = nextcord.Intents.all())
 @client.event
 async def on_ready():
@@ -22,7 +21,7 @@ async def on_ready():
     channel = client.get_channel(999541224975376486)
     print(f'{client.user} is ONLINE!')
     await channel.send('online')
-    await client.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name=f"#help"))
+    await client.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name=f"UNDER MAINTENANCE #help"))
 
 client.remove_command("help")
 
@@ -348,7 +347,7 @@ async def lovecalc(ctx, *, member: nextcord.Member = None):
     'https://c.tenor.com/SIw6C9wrgPUAAAAC/anime-hug.gif',
     'https://c.tenor.com/1GDpumaCq_4AAAAC/anime-hug.gif'
   ]
-  embed = nextcord.Embed(title="love calc", description=f"{ctx.author.name}loves{member.name}{random.choice(l)}%")
+  embed = nextcord.Embed(title="love calc", description=f"{ctx.author.name} loves {member.name}  {random.choice(l)}%")
   embed.set_image(url = f"{random.choice(hug)}")
   await ctx.send(embed=embed)
 
@@ -918,6 +917,18 @@ class rick(nextcord.ui.View):
 async def secret(ctx):
   await ctx.send("click on below link to reveal secret||Listen we r not hackers u can trust us||",view=rick())
   
+
+
+
+@client.command()
+async def uptime(ctx):
+  time = str(datetime.timedelta(seconds=int(round(time.time()-startTime))))
+  await ctx.send(f"Im up for {time}")
+
+
+
+
+
 
 
 
