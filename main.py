@@ -892,7 +892,7 @@ async def meme(ctx):
 class link(nextcord.ui.View):
     def __init__(self):
         super().__init__()
-        self.add_item(nextcord.ui.Button(style = nextcord.ButtonStyle.link, url = "https://discord.com/api/oauth2/authorize?client_id=840889400204328980&permissions=157035186230&scope=bot%20applications.commands", label = "INVITE ME", emoji = "<:invite:997076508050997278>"))
+        self.add_item(nextcord.ui.Button(style = nextcord.ButtonStyle.link, url = "https://discord.com/api/oauth2/authorize?client_id=970577992877223946&permissions=157035186230&scope=bot%20applications.commands", label = "INVITE ME", emoji = "<:invite:997076508050997278>"))
 @client.command() 
 async def invite(ctx):
       await ctx.send("INVITE ME☠️☠️☠️",view=link())
