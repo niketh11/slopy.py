@@ -365,7 +365,6 @@ class hi(nextcord.ui.View):
     
 @nextcord.ui.button(label = 'subscribe', style=nextcord.ButtonStyle.green)
 async def subcribe(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-  await interaction.response.send_message('Subvrlscribehdj', ephemeral=Fale)
   self.value = True
   self.stop()
 
@@ -923,6 +922,4 @@ async def secret(ctx):
 
 
 
-token = os.environ['token']
-  
-client.run(token)
+client.run(os.getenv('token'))
