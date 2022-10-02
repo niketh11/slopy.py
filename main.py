@@ -13,7 +13,7 @@ from nextcord import ButtonStyle, Interaction
 from nextcord.ui import button, View, Button
 from nextcord.abc import GuildChannel
 from PIL import Image
-
+import time
 client = commands.Bot(command_prefix=['#','<@970577992877223946> '], intents = nextcord.Intents.all())
 @client.event
 async def on_ready():
