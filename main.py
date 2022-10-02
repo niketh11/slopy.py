@@ -552,7 +552,7 @@ async def help(ctx):
 
             if self.values[0] == "in":
                
-                await interaction.response.send_message(embed = nextcord.Embed(title="<a:info:993763572888899584>|Info",description="```USERINFO,SERVERINFO,INVITE,SUPPORT```"))
+                await interaction.response.send_message(embed = nextcord.Embed(title="<a:info:993763572888899584>|Info",description="```USERINFO,SERVERINFO,INVITE,SUPPORT,UPTIME```"))
                                                         
                                                           
             elif self.values[0] == "mod":
@@ -569,7 +569,7 @@ async def help(ctx):
             elif self.values[0] == "util":
                 await interaction.response.send_message(embed = nextcord.Embed(title='<:Utility:990582796198244382>Utility',description='```dm,invites,members,rate,say,slowmode,avatar,8ball```'))                
             elif self.values[0] == "game":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps,ttt```'))
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps```'))
 
               
     class SelectView(nextcord.ui.View):
@@ -922,8 +922,8 @@ async def secret(ctx):
 
 @client.command()
 async def uptime(ctx):
-  time = str(datetime.timedelta(seconds=int(round(time.time()-startTime))))
-  await ctx.send(f"Im up for {time}")
+  uptimes = str(datetime.timedelta(seconds=int(round(time.time()-startTime))))
+  await ctx.send(f"Im up for {uptimes}")
 
 
 
