@@ -28,7 +28,7 @@ async def on_ready():
     channel = client.get_channel(999541224975376486)
     print(f'{client.user} is ONLINE!')
     await channel.send('online')
-    await client.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name=f"UNDER MAINTENANCE #help"))
+    await client.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name=f"#help"))
 
 client.remove_command("help")
 
@@ -559,7 +559,7 @@ async def help(ctx):
 
             if self.values[0] == "in":
                
-                await interaction.response.send_message(embed = nextcord.Embed(title="<a:info:993763572888899584>|Info",description="```USERINFO,SERVERINFO,INVITE,SUPPORT,UPTIME```"))
+                await interaction.response.send_message(embed = nextcord.Embed(title="<a:info:993763572888899584>|Info",description="```USERINFO,SERVERINFO,INVITE,SUPPORT,UPTIME,VOTE```"))
                                                         
                                                           
             elif self.values[0] == "mod":
@@ -933,9 +933,37 @@ async def uptime(ctx):
   await ctx.send(f" {uptimes}")
 
 
+  
+class damn(nextcord.ui.View):
+    def __init__(self):
+      super().__init__()
+      self.add_item(nextcord.ui.Button(style = nextcord.ButtonStyle.link, url = "https://discordbotlist.com/bots/fleko", label = "DBL", emoji = "<:topgg:1026364285653360751>"))
 
 
 
+
+
+
+
+
+      
+class topn(nextcord.ui.View):
+    def __init__(self):
+      super().__init__()
+      self.add_item(nextcord.ui.Button(style = nextcord.ButtonStyle.link, url = "https://top.gg/bot/970577992877223946", label = "TOP.GG", emoji = "<:topgg:1026364024469856317>"))
+      self.add_item(nextcord.ui.Button(style = nextcord.ButtonStyle.link, url = "https://discordbotlist.com/bots/fleko", label = "DBL", emoji = "<:topgg:1026364285653360751>"))
+
+
+ 
+@client.command()
+async def vote(ctx):
+  
+  view = topn()
+  
+  await ctx.send("VOTE ME",view=view) 
+
+
+        
 
 
 
