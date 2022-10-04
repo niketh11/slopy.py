@@ -1,0 +1,52 @@
+@client.command()
+async def help(ctx):
+
+    class Select(nextcord.ui.Select):
+        def __init__(self):
+            options=[
+                nextcord.SelectOption(label="INFO", description="Shows info commands", emoji="<a:info:993763572888899584>",value="in",),
+                nextcord.SelectOption(label="Modration", description="Shows modration commands",emoji='<:moderation:990580070466846720>', value="mod"),
+                nextcord.SelectOption(label="Fun", description="Shows fun commands", emoji = '<a:fun:1025273034543730768>',value="fun"),
+
+
+                nextcord.SelectOption(label="Games", description="Shows Game commands", emoji = '<a:games:1025277092461559849>',value="game"),                
+              
+                nextcord.SelectOption(label="Actions", description="Shows action commands", emoji='<:actionshin:1025273873450676294>',value="action"),              
+                nextcord.SelectOption(label="Utility", description="Shows utility commands", emoji='<:Utility:990582796198244382>',value="util"),
+
+                ]
+            super().__init__(placeholder="Select an option",max_values=1,min_values=1,options=options)
+        async def callback(self, interaction: nextcord.Interaction):
+
+            if self.values[0] == "in":
+               
+                await interaction.response.send_message(embed = nextcord.Embed(title="<a:info:993763572888899584>|Info",description="```USERINFO,SERVERINFO,INVITE,SUPPORT,UPTIME,VOTE```"))
+                                                        
+                                                          
+            elif self.values[0] == "mod":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<:moderation:990580070466846720>Modration',description = '```kick,Ban,lock,unlock,purge,mute,unmute```'))
+            elif self.values[0] == "fun":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret```'))                
+
+
+            elif self.values[0] == "action":
+                await interaction.response.send_message(embed = nextcord.Embed(title="<:actionshin:1025273873450676294>Action",description='```slap,hug,pat``'))                
+
+
+
+            elif self.values[0] == "util":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<:Utility:990582796198244382>Utility',description='```dm,invites,members,rate,say,slowmode,avatar,8ball```'))                
+            elif self.values[0] == "game":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps```'))
+
+              
+    class SelectView(nextcord.ui.View):
+        def __init__(self, *, timeout = 180):
+            super().__init__(timeout=timeout)
+            self.add_item(Select())
+    embed = nextcord.Embed(title='hey wassup?',description='i dont want to say anything:/ just try ur own')
+    embed.set_thumbnail(url=client.user.display_avatar)
+    embed.set_image(url="https://media.discordapp.net/attachments/949881939576389645/1025061501901471794/images_29.jpg")
+
+    
+    await ctx.send(embed=embed,view=SelectView())

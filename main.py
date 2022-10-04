@@ -54,10 +54,10 @@ async def ping(interaction: nextcord.Interaction):
 
 @client.event
 async def on_message(message):
-    if client.user.mentioned_in(message):
+    if message.content.startswith(f'<@970577992877223946>'):
       
       embed = nextcord.Embed(title = "Hey wassup?", description="my prefix is `#`")
-      embed.set_image(url="https://media.discordapp.net/attachments/949881939576389645/1025061501901471794/images_29.jpg")
+    
       embed.set_thumbnail(url=client.user.display_avatar)
       
       await message.channel.send(embed=embed)
