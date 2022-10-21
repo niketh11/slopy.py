@@ -21,7 +21,7 @@ startTime = time.time()
 
 
 
-client = commands.Bot(command_prefix=['#','<@970577992877223946> '], intents = nextcord.Intents.all())
+client = commands.Bot(command_prefix=['/','<@970577992877223946> '], intents = nextcord.Intents.all())
 @client.event
 async def on_ready():
   
@@ -584,6 +584,7 @@ async def help(ctx):
             super().__init__(timeout=timeout)
             self.add_item(Select())
     embed = nextcord.Embed(title='hey wassup?',description='i dont want to say anything:/ just try ur own')
+    embed.add_field(name="TYPES",value="🔨 | Moderation")
     embed.set_thumbnail(url=client.user.display_avatar)
     embed.set_image(url="https://media.discordapp.net/attachments/949881939576389645/1025061501901471794/images_29.jpg")
 
@@ -967,5 +968,119 @@ async def vote(ctx):
 
 
 
+
+
+
+@client.command()
+async def users(ctx):
+  user = client.users
+  users = len(user)
+  await ctx.send(f"{users}")
+
+@client.command()
+async def servers(ctx):
+  s = client.guilds
+  si = len(s)
+  await ctx.send(f"{si}")
+
+
+
+
+mod = nextcord.Embed(title="🔨 | Moderation",description=" `kick`, `ban`, `unban`, `mute`, `unmute`, `purge`")
+mod.add_field(name="kick",value='usage:```^kick <@user>```')
+mod.add_field(name="Ban",value="usage:```^kick <@user>```")
+mod.add_field(name="unban",value="usage:```^unban <member id>```")
+mod.add_field(name="mute",value="usage:```^mute <@user> <time>```")
+mod.add_field(name="unmute",value = "usage:```^unmute <@user>```")
+mod.add_field(name=" Purge",value="usage:```^purge <amount>```")
+mod.set_image(url="https://media.tenor.com/oS0d558B98MAAAAC/discord-robot.gif")
+mod.set_thumbnail(url="https://media.discordapp.net/attachments/999541224975376486/1026809767387217940/965e748eecc4cd9a2c1a8d019fe34a2b.png")
+fun = nextcord.Embed(title='<:fun:1026834098704089129>',description="`ping`, `calc`, `dog`, `cat`, `virus`, `time`, `thank`, `hack`, `profile`, `meme`") 
+fun.add_field(name="ping",value="usage:```^ping```")
+fun.add_field(name="calc",value="usage:```^calc```")
+fun.add_field(name="cat",value="usage:```^cat```")
+fun.add_field(name="virus",value="usage:```^virus <@user>```")
+fun.add_field(name="time",value="usage:```time```")
+fun.set_image(url="https://media.discordapp.net/attachments/999541224975376486/1027160360169513000/giphy.gif")
+fun.set_thumbnail(url=f"https://media.discordapp.net/attachments/999541224975376486/1026809767387217940/965e748eecc4cd9a2c1a8d019fe34a2b.png")
+
+class funn(nextcord.ui.View):
+    def __init__(self):
+        super().__init__()
+        
+
+    @nextcord.ui.button(label=None, style=nextcord.ButtonStyle.primary,emoji="<:arrow_side:1027163556048801842> ")
+    async def green_button(self,button:nextcord.ui.Button,interaction:nextcord.Interaction):
+      await interaction.response.send_message(embed=embed,view=funn())      
+@client.command()
+async def oru(ctx):
+
+    class orus(nextcord.ui.Select):
+        def __init__(self):
+            options=[
+                nextcord.SelectOption(label="MODRATION", description="Shows MODRATION commands", emoji="<a:modration:1026833720751173682>",value="modration",),
+                nextcord.SelectOption(label="FUN", description="Shows Fun commands",emoji='<:fun:1026834098704089129>', value="fun"),
+                nextcord.SelectOption(label="Utility", description="Shows Utility commands", emoji = '<:Icons_utility:1026834454016176138>',value="utility"),
+
+
+                nextcord.SelectOption(label="Games", description="Shows Game commands", emoji = '<:dice:1026834890165063700>',value="game"),                
+              
+                nextcord.SelectOption(label="Actions", description="Shows action commands", emoji='<:huggingface:1026835320324489296>',value="action"),              
+                nextcord.SelectOption(label="Search", description="Shows Search commands", emoji='<a:search:1026835496770474104>',value="util"),
+                nextcord.SelectOption(label="Giveaway", description="Shows Giveaway commands", emoji='<:giveaways:1026835691440717915>',value="Giveaway"),
+                nextcord.SelectOption(label="Economy", description="Shows Economy commands", emoji='<a:economy:1026835809749438554>',value="Economy"),      
+
+
+                nextcord.SelectOption(label="Other", description="Shows other commands", emoji='<:others:1026835973406986241>',value="Other"),     
+
+              
+                ]
+            super().__init__(placeholder="Select an option",max_values=1,min_values=1,options=options)
+        async def callback(self, interaction: nextcord.Interaction):
+
+            if self.values[0] == "modration":
+                
+              await interaction.response.send_message(embed = mod)
+                                                        
+                                                     
+            elif self.values[0] == "fun":
+                await interaction.response.send_message(embed = fun)
+            elif self.values[0] == "fuhjn":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret```'))                
+
+
+            elif self.values[0] == "action":
+                await interaction.response.send_message(embed = nextcord.Embed(title="<:actionshin:1025273873450676294>Action",description='```slap,hug,pat``'))                
+
+
+
+            elif self.values[0] == "util":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<:Utility:990582796198244382>Utility',description='```dm,invites,members,rate,say,slowmode,avatar,8ball```'))                
+            elif self.values[0] == "game":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps```'))
+
+              
+    class oru(nextcord.ui.View):
+        def __init__(self, *, timeout = 180):
+            super().__init__(timeout=timeout)
+            self.add_item(orus())
+    embed = nextcord.Embed(title='Hey Im orus',description='Thanks for using <:textard:1026757582611828786>**Orus**! use select menu to get command list')
+    embed.add_field(name="TYPES",value="Tyep of commands")
+    embed.add_field(name="🔨 | Moderation",value=f"Modration commands")
+    embed.add_field(name='🥳 | Fun',value="Fun commands")
+    embed.add_field(name='🛠️ | Utility',value="Utility commands")
+    embed.add_field(name="🎲 | Games",value="Game commands")
+    embed.add_field(name="🤗 | Actions",value=" Action commands")
+    embed.add_field(name="🔎 | Search",value="search command")
+    embed.add_field(name="🎉 | Giveaway",value="Giveaway commands")
+    embed.add_field(name="👹 | Anime",value="Anime commands")
+    embed.add_field(name="💰 | Economy",value="Economy commands")
+    embed.add_field(name="❓ | Other",value="Other commands")
+
+
+  
+    embed.set_thumbnail(url=client.user.display_avatar)
+    
+    await ctx.send(embed=embed,view=oru())
 
 client.run(os.getenv('token'))

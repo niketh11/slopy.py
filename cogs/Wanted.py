@@ -4,9 +4,9 @@ from nextcord.ext import commands
 from io import BytesIO
 
 
-class ImageManipulation(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
+class wanted(commands.Cog):
+    def __init__(self, client):
+        self.bot = client
 
     @commands.command()
     async def wanted(self, ctx, member: nextcord.Member = ''):
@@ -28,5 +28,5 @@ class ImageManipulation(commands.Cog):
 
 
 
-def setup(bot):
-    bot.add_cog(ImageManipulation(bot))
+def setup(client):
+    client.add_cog(wanted(client))
