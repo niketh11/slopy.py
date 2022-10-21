@@ -21,7 +21,7 @@ startTime = time.time()
 
 
 
-client = commands.Bot(command_prefix=['/','<@970577992877223946> '], intents = nextcord.Intents.all())
+client = commands.Bot(command_prefix=['#','<@970577992877223946> '], intents = nextcord.Intents.all())
 @client.event
 async def on_ready():
   
@@ -584,7 +584,7 @@ async def help(ctx):
             super().__init__(timeout=timeout)
             self.add_item(Select())
     embed = nextcord.Embed(title='hey wassup?',description='i dont want to say anything:/ just try ur own')
-    embed.add_field(name="TYPES",value="🔨 | Moderation")
+    
     embed.set_thumbnail(url=client.user.display_avatar)
     embed.set_image(url="https://media.discordapp.net/attachments/949881939576389645/1025061501901471794/images_29.jpg")
 
