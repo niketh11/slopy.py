@@ -32,7 +32,7 @@ async def on_ready():
     channel = client.get_channel(999541224975376486)
     print(f'{client.user} is ONLINE!')
     await channel.send('online')
-    await client.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name=f"#help"))
+    await client.change_presence(status=nextcord.Status.dnd,activity=nextcord.Activity(type=nextcord.ActivityType.watching, name=f"#help"))
 
 client.remove_command("help")
 
