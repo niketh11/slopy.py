@@ -18,6 +18,7 @@ Pillow = "^9.2.0"
 helpers = "^0.2.0"
 akinator = "^1.0.3"
 utils = "^1.0.1"
+"craiyon.py" = "^0.1.0"
 
 
 

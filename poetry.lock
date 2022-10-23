@@ -97,6 +97,17 @@ python-versions = ">=3.6.0"
 unicode_backport = ["unicodedata2"]
 
 [[package]]
+name = "craiyon.py"
+version = "0.1.0"
+description = "API Wrapper for craiyon.com (DAL-E-MINI). Generate awesome images from text tokens."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = "*"
+
+[[package]]
 name = "flatten-json"
 version = "0.1.13"
 description = "Flatten JSON objects"
@@ -303,7 +314,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "1caa09cca35ce58cd59dccca6da81694f0afca8e6894fb3732b9b86429cf9321"
+content-hash = "d05d200c2861277b063687a7a9d7f218c7d5ea55c3282a6127550bb4502ead81"
 
 [metadata.files]
 aiohttp = []
@@ -314,6 +325,7 @@ attrs = []
 certifi = []
 cffi = []
 charset-normalizer = []
+"craiyon.py" = []
 flatten-json = []
 frozenlist = []
 helpers = []
