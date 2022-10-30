@@ -31,7 +31,7 @@ startTime = time.time()
 cluster = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGO"])
 well = cluster["main"]
 welcome = well["welcome"]
-
+leave = well["leave"]
 print("Database Initalized")
 
 client = commands.Bot(command_prefix=['#','<@970577992877223946> '], intents = nextcord.Intents.all())
@@ -603,7 +603,7 @@ nextcord.SelectOption(label="support", description="Shows support commands", emo
                 await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps```'))
               
             elif self.values[0] == "welcw":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<a:animeWelcome:1034761336334331946>|Games',description='```setchannel```'))
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:animeWelcome:1034761336334331946>|Games',description='```setchannel,rwchannel```'))
             elif self.values[0] == "supp":
                 await interaction.response.send_message(embed = nextcord.Embed(title='<a:supporter:1034813070708580352>|Support',description='```suggest report```'))              
     class SelectView(nextcord.ui.View):
@@ -1142,12 +1142,13 @@ def circle(pfp,size = (220,220)):
   return pfp
 
 @client.command()
+@commands.has_permissions(manage_channels=True)
 async def setchannel(ctx, *, channel: nextcord.TextChannel):
   cid = {
     "guild_id":ctx.guild.id,"welcome_id":channel.id
   }
   await welcome.insert_one(cid)
-  message = await ctx.send("downe")
+  message = await ctx.send(embed = nextcord.Embed(title=" welcome has successful fully set",description=f"<#{channel.id}>"))
 
 
 
@@ -1180,7 +1181,7 @@ async def on_member_join(member: nextcord.Member):
   welcce.save('welccm.png')
 
   
-  embed = nextcord.Embed(title = "<a:welcome:1034105622586732564>|Welcome",description = f"Hey! {member.name}welcome to the server!")
+  embed = nextcord.Embed(title = "<a:welcome:1034105622586732564>|Welcome",description = f"**Hey!** {member.name} **welcome to this server!**")
   embed.add_field(name="<a:arrow:1034105896722239578>|start chatting and make new friends",value =":D")
   embed.set_image(url="attachment://welccm.png")
   embed.set_thumbnail(url=member.display_avatar)
@@ -1225,6 +1226,38 @@ async def report(ctx, *,msg):
   await channel.send(embed = embed)
   await ctx.send("report successfully sent")
 
+@client.command()
+@commands.has_permissions(manage_channels=True)
+async def rwchannel(ctx, *,channel: nextcord.TextChannel):
+  data = await welcome.find_one({"welcome_id": channel.id})
+  welcc = data["welcome_id"]
+  await welcome.delete_one({'welcome_id': channel.id})
+  ##await ecomoney.update_one({"id": user.id}, {"$inc": {"wallet": +amount, "bank": -amount}})
+  message = await ctx.send(embed = nextcord.Embed(title=" welcome has successful removed"))
 
-  
+@client.event
+async def on_command_error(ctx, err):
+  channel = await client.get_channel(972006886784258068)
+  await channel.send(f"{err}")
+
+
+
+
+
+
+
+
+
+@client.command()
+async def leavechannel(ctx, *, channel: nextcord.TextChannel):
+  cid = {
+    "guild_id":ctx.guild.id,"leave_id":channel.id
+  }
+  await leave.insert_one(cid)
+  message = await ctx.send(embed = nextcord.Embed(title=" successfully set leave channel",description=f"<#{channel.id}>"))
+
+
+ 
+
+
 client.run(os.getenv('token'))

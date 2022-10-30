@@ -37,12 +37,7 @@ class Errors(commands.Cog):
         elif isinstance(err, commands.NoPrivateMessage):
             await ctx.send(embed=nextcord.Embed(title="This command can only be used in Guilds.", color=nextcord.Color.random()))
 
-        elif isinstance(err, commands.MissingPermissions):
-            perms = ", ".join(
-                f"`{perm.replace('_', ' ').title()}`" for perm in err.missing_perms
-            )
 
-            await ctx.send(embed=nextcord.Embed(title=f"You're missing the permissions: {perms}", color=nextcord.Color.random()))
 
         elif isinstance(err, commands.BotMissingPermissions):
             perms = ", ".join(
@@ -68,7 +63,11 @@ class Errors(commands.Cog):
                 embed=nextcord.Embed(title=f"`{ctx.command.qualified_name}` can only be used {err.number} command at a time under {str(err.per)}",
                                      color=nextcord.Color.random()
             ))
-
+          
+        elif isinstance(err, commands.MissingPermissions):
+             await ctx.send("you r missing perms") 
+        elif isinstance(err, commands.BotMissingPermissions):
+             await ctx.send("ahh man I don't have perms")       
         elif isinstance(err, commands.errors.CommandNotFound):
             pass
 
