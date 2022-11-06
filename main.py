@@ -565,17 +565,17 @@ async def help(ctx):
     class Select(nextcord.ui.Select):
         def __init__(self):
             options=[
-                nextcord.SelectOption(label="INFO", description="Shows info commands", emoji="<a:info:993763572888899584>",value="in",),
-                nextcord.SelectOption(label="Modration", description="Shows modration commands",emoji='<:moderation:990580070466846720>', value="mod"),
-                nextcord.SelectOption(label="Fun", description="Shows fun commands", emoji = '<a:fun:1025273034543730768>',value="fun"),
+                nextcord.SelectOption(label="INFO",emoji="<a:info:993763572888899584>",value="in",),
+                nextcord.SelectOption(label="Modration",emoji='<:moderation:990580070466846720>', value="mod"),
+                nextcord.SelectOption(label="Fun",emoji = '<a:fun:1025273034543730768>',value="fun"),
 
 
-                nextcord.SelectOption(label="Games", description="Shows Game commands", emoji = '<a:games:1025277092461559849>',value="game"),                
+                nextcord.SelectOption(label="Games",emoji = '<a:games:1025277092461559849>',value="game"),                
               
-                nextcord.SelectOption(label="Actions", description="Shows action commands", emoji='<:actionshin:1025273873450676294>',value="action"),
-              nextcord.SelectOption(label="Welcome", description="Shows welcome commands", emoji='<a:animeWelcome:1034761336334331946>',value="welcw"),
-nextcord.SelectOption(label="support", description="Shows support commands", emoji='<a:supporter:1034813070708580352>',value="supp"),              
-                nextcord.SelectOption(label="Utility", description="Shows utility commands", emoji='<:Utility:990582796198244382>',value="util"),
+                nextcord.SelectOption(label="Actions",emoji='<:actionshin:1025273873450676294>',value="action"),
+              nextcord.SelectOption(label="Welcome",emoji='<a:animeWelcome:1034761336334331946>',value="welcw"),
+nextcord.SelectOption(label="support",emoji='<a:supporter:1034813070708580352>',value="supp"),              
+                nextcord.SelectOption(label="Utility",emoji='<:Utility:990582796198244382>',value="util"),
 
                 ]
             super().__init__(placeholder="Select an option",max_values=1,min_values=1,options=options)
@@ -610,10 +610,10 @@ nextcord.SelectOption(label="support", description="Shows support commands", emo
         def __init__(self, *, timeout = 180):
             super().__init__(timeout=timeout)
             self.add_item(Select())
-    embed = nextcord.Embed(title='hey wassup?',description='i dont want to say anything:/ just try ur own')
+    embed = nextcord.Embed(title='hey wassup?',description='Use select menu to get cmds')
     
-    embed.set_thumbnail(url=client.user.display_avatar)
-    embed.set_image(url="https://media.discordapp.net/attachments/949881939576389645/1025061501901471794/images_29.jpg")
+    embed.set_thumbnail(url=ctx.author.display_avatar)
+    embed.set_image(url="https://media.discordapp.net/attachments/999541224975376486/1038829585254592592/standard_1.gif")
 
     
     await ctx.send(embed=embed,view=SelectView())                            
@@ -1641,17 +1641,17 @@ async def help(ctx):
     class Select(nextcord.ui.Select):
         def __init__(self):
             options=[
-                nextcord.SelectOption(label="INFO", description="Shows info commands", emoji="<a:info:993763572888899584>",value="in",),
-                nextcord.SelectOption(label="Modration", description="Shows modration commands",emoji='<:moderation:990580070466846720>', value="mod"),
-                nextcord.SelectOption(label="Fun", description="Shows fun commands", emoji = '<a:fun:1025273034543730768>',value="fun"),
+                nextcord.SelectOption(label="INFO",emoji="<a:info:993763572888899584>",value="in",),
+                nextcord.SelectOption(label="Modration",emoji='<:moderation:990580070466846720>', value="mod"),
+                nextcord.SelectOption(label="Fun",emoji = '<a:fun:1025273034543730768>',value="fun"),
 
 
-                nextcord.SelectOption(label="Games", description="Shows Game commands", emoji = '<a:games:1025277092461559849>',value="game"),                
+                nextcord.SelectOption(label="Games",emoji = '<a:games:1025277092461559849>',value="game"),                
               
-                nextcord.SelectOption(label="Actions", description="Shows action commands", emoji='<:actionshin:1025273873450676294>',value="action"),
-              nextcord.SelectOption(label="Welcome", description="Shows welcome commands", emoji='<a:animeWelcome:1034761336334331946>',value="welcw"),
-nextcord.SelectOption(label="support", description="Shows support commands", emoji='<a:supporter:1034813070708580352>',value="supp"),              
-                nextcord.SelectOption(label="Utility", description="Shows utility commands", emoji='<:Utility:990582796198244382>',value="util"),
+                nextcord.SelectOption(label="Actions",emoji='<:actionshin:1025273873450676294>',value="action"),
+              nextcord.SelectOption(label="Welcome",emoji='<a:animeWelcome:1034761336334331946>',value="welcw"),
+nextcord.SelectOption(label="support",emoji='<a:supporter:1034813070708580352>',value="supp"),              
+                nextcord.SelectOption(label="Utility",emoji='<:Utility:990582796198244382>',value="util"),
 
                 ]
             super().__init__(placeholder="Select an option",max_values=1,min_values=1,options=options)
@@ -1686,10 +1686,10 @@ nextcord.SelectOption(label="support", description="Shows support commands", emo
         def __init__(self, *, timeout = 180):
             super().__init__(timeout=timeout)
             self.add_item(Select())
-    embed = nextcord.Embed(title='hey wassup?',description='i dont want to say anything:/ just try ur own')
+    embed = nextcord.Embed(title='hey wassup?',description='Use select menu to get cmds')
     
     embed.set_thumbnail(url=client.user.display_avatar)
-    embed.set_image(url="https://media.discordapp.net/attachments/949881939576389645/1025061501901471794/images_29.jpg")
+    embed.set_image(url="https://media.discordapp.net/attachments/999541224975376486/1038829585254592592/standard_1.gif")
 
     
     await ctx.send(embed=embed,view=SelectView())
