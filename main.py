@@ -1181,7 +1181,7 @@ async def on_member_join(member: nextcord.Member):
   welcce.save('welccm.png')
 
   
-  embed = nextcord.Embed(title = "<a:welcome:1034105622586732564>|Welcome",description = f"**Hey!** {member.name} **welcome to this server!**")
+  embed = nextcord.Embed(title = "<a:welcome:1034105622586732564>|Welcome",description = f"**Hey!** {member.name} **welcome to this server!**",color=nextcord.Colour.random())
   embed.add_field(name="<a:arrow:1034105896722239578>|start chatting and make new friends",value =":D")
   embed.set_image(url="attachment://welccm.png")
   embed.set_thumbnail(url=member.display_avatar)
@@ -1237,7 +1237,7 @@ async def rwchannel(ctx, *,channel: nextcord.TextChannel):
 
 @client.event
 async def on_command_error(ctx, err):
-  channel = await client.get_channel(972006886784258068)
+  channel = client.get_channel(972006886784258068)
   await channel.send(f"{err}")
 
 
@@ -1258,6 +1258,733 @@ async def leavechannel(ctx, *, channel: nextcord.TextChannel):
 
 
  
+@client.command()
+async def c(ctx, *, msg):
+  uri = urllib.request.urlopen(f'http://api.brainshop.ai/get?bid=159854&key=hVPPoB6zZUWSiUtP&uid=[uid]&msg={msg}')
+  memeData = json.load(uri)
+  await ctx.send(f"{memeData}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@client.slash_command(description = "kicks member from server")
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, user: nextcord.Member = None, *, reason=None):
+    if user == None:
+        await ctx.send("Please enter a user!")
+        return
+
+    await user.kick(reason=reason)
+    await ctx.send(f'Kicked {user.name} for reason {reason}')
+
+@kick.error
+async def kick_error(ctx, error):
+    if isinstance(error,commands.CheckFailure):
+        await ctx.send('You do not have permission to use this command!',delete_after = True)
+
+
+
+
+
+
+
+
+@client.slash_command()
+@commands.has_permissions(manage_messages=True)
+async def purge(ctx, limit: int):
+    await ctx.message.delete()
+    await asyncio.sleep(1)
+    await ctx.channel.purge(limit=limit)
+    purge_embed = nextcord.Embed(title='Purge [!purge]', description=f'Successfully purged {limit} messages. \n Command executed by {ctx.author}.', color=nextcord.Colour.random())
+    purge_embed.set_footer(text=str(datetime.datetime.now()))
+    await ctx.channel.send(embed=purge_embed, delete_after=True)
+@purge.error
+async def purge_error(ctx, error):
+    if isinstance(error,commands.CheckFailure):
+        await ctx.send('You do not have permission to use this command!')
+
+@client.slash_command(description = "unban's member from server")
+@commands.has_permissions(ban_members=True)
+async def unban(ctx, *, member):
+    banned_users = await ctx.guild.bans()
+    member_name, member_discriminator = member.split("#")
+
+    for ban_entry in banned_users:
+        user = ban_entry.user
+
+        if (user.name, user.discriminator) == (member_name, member_discriminator):
+            await ctx.guild.unban(user)
+            await ctx.send(f'Unbanned {user.name}#{user.discriminator}')
+@unban.error
+async def unban_error(ctx, error):
+    if isinstance(error,commands.CheckFailure):
+        await ctx.send('You do not have permission to use this command!')
+
+
+@client.slash_command(description = "ban's member from server")
+@commands.has_permissions(ban_members=True)
+async def ban(ctx, user: nextcord.Member = None, *, reason=None):
+    if user == None:
+        await ctx.send("Please enter a user!")
+        return
+
+    await user.ban(reason=reason)
+    await ctx.send(f'Banned {user.name} for reason {reason}')
+@ban.error
+async def ban_error(ctx, error):
+    if isinstance(error,commands.CheckFailure):
+        await ctx.send('You do not have permission to use this command!')
+
+
+
+
+
+
+
+
+
+
+@client.slash_command(description = "just fun")
+async def hack(ctx, *, member: nextcord.Member = None):
+  password = [
+
+        ':nxjdididkxkkxk)',
+        '13384859(&8_8_(&(',
+        'ndidicjckoxixk',
+        'discordpaddfjfjj',
+        'Definitely',
+        'ye',
+        'Maybe so.',
+        'No i doi dont thinkdont think so'
+        'ofcdjjdjxkxk'
+
+      ]
+  message = await ctx.send(f"HACKING {member.name} now...")
+  await asyncio.sleep(1)
+  message.edit(content=f"installing virus in all connected divices")
+  await asyncio.sleep(1)
+  await message.edit(content=f"installing virus")
+  await asyncio.sleep(4)
+  message.edit(content=f"installed virus")
+  await asyncio.sleep(1)
+  message.edit(content=f"Finding discord login info....")
+  await asyncio.sleep(1)
+  await message.edit(content=f"""FOUND  Email: `{member.name}@gmail.com`              Password:`{random.choice(password)}`""")
+  await asyncio.sleep(1)
+  await  message.edit(content=f"deleting all data")
+  await  message.edit(content=f"SUCCESS FULLY HACKED {member.name}")
+
+
+
+
+
+
+
+
+@client.slash_command(description = "says the msg")
+async def say(ctx,*,message=None):
+  if message is None:
+    await ctx.send(f'{ctx.author.mention} mention some message to say')
+    return
+  else:
+      	await ctx.send(message)
+
+
+
+
+@client.slash_command(description = " flip a coin") 
+async def coinflip(ctx):
+
+  message = await ctx.send(f"<a:coinflip1:1003650084312981615>| fliping a coin...")
+  cf = [
+
+
+
+    "Tails", 
+    "Heads"
+
+
+  ]
+  await asyncio.sleep(1)
+  await message.edit(f"{random.choice(cf)}")
+
+
+
+@client.slash_command(description = "roll a dice") 
+async def dice(ctx):
+
+  message = await ctx.send(f"<a:dice:1003653068325396500>|Rolling dice")
+  dice = [
+
+
+
+    "1", 
+    "2", 
+    "3", 
+    "5", 
+    "6",
+    "4"
+
+
+  ]
+  await asyncio.sleep(1)
+  await message.edit(f"<a:dice:1003653068325396500>|{random.choice(dice)}")
+
+
+
+
+
+
+
+@client.slash_command(description = "rate's a word")
+async def rate(ctx,*,message=None):
+  if message is None:
+    await ctx.send(f'{ctx.author.mention} mention any word to rate')
+    return
+  else:
+    b = [
+    "1", 
+    "6", 
+    "9", 
+    "15", 
+    "12", 
+    "20", 
+    "28", 
+    "35", 
+    " 65", 
+    "33", 
+    "38", 
+    "45", 
+    "50", 
+    "58", 
+    "68", 
+    "65", 
+    " 74", 
+    "79", 
+    "80", 
+    "91", 
+    "100", 
+    " 98", 
+    
+  ]
+  await ctx.send(f"I rate {message} {random.choice(b)}%")
+@rate.error
+async def rate_error(ctx):
+  await ctx.send(f"{ctx.author.name} give me a word to rate")
+
+@client.slash_command(description = "flips the text")
+async def fliptext(ctx, *, msg="A normal sentence"): 
+    await ctx.send(arg[::-1])
+
+
+@client.slash_command(description = " claclulates love between u and member")
+async def lovecalc(ctx, *, member: nextcord.Member = None):
+  l = [
+    "1", 
+    "6", 
+    "9", 
+    "15", 
+    "12", 
+    "20", 
+    "28", 
+    "35", 
+    "65", 
+    "33", 
+    "38", 
+    "45", 
+    "50", 
+    "58", 
+    "68", 
+    "65", 
+    " 74", 
+    "79", 
+    "80", 
+    "91", 
+    "100", 
+    " 98", 
+    
+  ]
+  hug = [
+    'https://c.tenor.com/8Jk1ueYnyYUAAAAC/hug.gif',
+    'https://i.pinimg.com/originals/31/d2/3c/31d23cb7e7f199a0524eb2a95eeb6397.gif',
+    'https://c.tenor.com/2VVGNLi-EV4AAAAM/anime-cute.gif'
+    'https://c.tenor.com/5fiWSpLaEe0AAAAC/anime-hug.gif',
+    'https://c.tenor.com/AO-1yttBeH8AAAAC/anime-hug.gif',
+    'https://c.tenor.com/2lr9uM5JmPQAAAAC/hug-anime-hug.gif',
+  'https://c.tenor.com/cFhjNVecNGcAAAAC/anime-hug.gif',
+    'https://c.tenor.com/SIw6C9wrgPUAAAAC/anime-hug.gif',
+    'https://c.tenor.com/1GDpumaCq_4AAAAC/anime-hug.gif'
+  ]
+  embed = nextcord.Embed(title="love calc", description=f"{ctx.author.name} loves {member.name}  {random.choice(l)}%")
+  embed.set_image(url = f"{random.choice(hug)}")
+  await ctx.send(embed=embed)
+
+
+
+
+  
+@client.slash_command(description = "shows ur invites")
+async def invites(ctx):
+    totalInvites = 0
+    for i in await ctx.guild.invites():
+        if i.inviter == ctx.author:
+            totalInvites += i.uses
+    await ctx.send(f"You've invited {totalInvites} member{'' if totalInvites == 1 else 's'} to the server!")
+
+
+@client.slash_command(description = "shows members count in server")
+
+async def members(ctx):
+
+    a=ctx.guild.member_count
+    b=nextcord.Embed(title=f"members in {ctx.guild.name}",description=a,color=nextcord.Color((0xffff00)))
+    await ctx.send(embed=b)
+@client.slash_command(description = " play rps with bot")
+async def rps(ctx):
+    embed = nextcord.Embed(title="<a:rps:1004022823842480168>Rps",description='click on button to play')
+    view = ButtonName()
+    await ctx.send(embed=embed, view=view)
+
+
+
+
+
+
+
+
+
+@client.slash_command(description = "shows server info")
+async def serverinfo(ctx):
+    embed = nextcord.Embed(title = f"{ctx.guild.name} Info", description = "Information of this Server", color = nextcord.Colour.blue())
+    embed.add_field(name = 'Server ID', value = f"{ctx.guild.id}", inline = True)
+    embed.add_field(name = 'Created On', value = ctx.guild.created_at.strftime("%b %d %Y"), inline = True)
+    embed.add_field(name = 'Owner', value = f"{ctx.guild.owner}", inline = True)
+    embed.add_field(name = 'Members', value = f'{ctx.guild.member_count} Members', inline = True)
+    
+    embed.add_field(name = 'Region', value = f'{ctx.guild.region}', inline = True)
+        
+    
+    await ctx.send(embed=embed)
+
+
+
+
+
+@client.slash_command(description = "lock the channel")
+@commands.has_permissions(manage_channels=True)
+async def lock(ctx, channel : nextcord.TextChannel=None):
+    channel = channel or ctx.channel
+    overwrite = channel.overwrites_for(ctx.guild.default_role)
+    overwrite.send_messages = False
+    await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+    await ctx.send('Channel locked.')
+
+@client.slash_command(description = "unlock the channel")
+@commands.has_permissions(manage_channels=True)
+async def unlock(ctx, channel : nextcord.TextChannel=None):
+    channel = channel or ctx.channel
+    overwrite = channel.overwrites_for(ctx.guild.default_role)
+    overwrite.send_messages = True
+    await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+    await ctx.send('Channel unlocked.')
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+@client.slash_command(description = "shows help menu")
+async def help(ctx):
+
+    class Select(nextcord.ui.Select):
+        def __init__(self):
+            options=[
+                nextcord.SelectOption(label="INFO", description="Shows info commands", emoji="<a:info:993763572888899584>",value="in",),
+                nextcord.SelectOption(label="Modration", description="Shows modration commands",emoji='<:moderation:990580070466846720>', value="mod"),
+                nextcord.SelectOption(label="Fun", description="Shows fun commands", emoji = '<a:fun:1025273034543730768>',value="fun"),
+
+
+                nextcord.SelectOption(label="Games", description="Shows Game commands", emoji = '<a:games:1025277092461559849>',value="game"),                
+              
+                nextcord.SelectOption(label="Actions", description="Shows action commands", emoji='<:actionshin:1025273873450676294>',value="action"),
+              nextcord.SelectOption(label="Welcome", description="Shows welcome commands", emoji='<a:animeWelcome:1034761336334331946>',value="welcw"),
+nextcord.SelectOption(label="support", description="Shows support commands", emoji='<a:supporter:1034813070708580352>',value="supp"),              
+                nextcord.SelectOption(label="Utility", description="Shows utility commands", emoji='<:Utility:990582796198244382>',value="util"),
+
+                ]
+            super().__init__(placeholder="Select an option",max_values=1,min_values=1,options=options)
+        async def callback(self, interaction: nextcord.Interaction):
+
+            if self.values[0] == "in":
+               
+                await interaction.response.send_message(embed = nextcord.Embed(title="<a:info:993763572888899584>|Info",description="```USERINFO,SERVERINFO,INVITE,SUPPORT,UPTIME,VOTE,PING```"))
+                                                        
+                                                          
+            elif self.values[0] == "mod":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<:moderation:990580070466846720>Modration',description = '```kick,Ban,lock,unlock,purge,mute,unmute```'))
+            elif self.values[0] == "fun":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret,genimage```'))                
+
+
+            elif self.values[0] == "action":
+                await interaction.response.send_message(embed = nextcord.Embed(title="<:actionshin:1025273873450676294>Action",description='```slap,hug,pat``'))                
+
+
+
+            elif self.values[0] == "util":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<:Utility:990582796198244382>Utility',description='```dm,invites,members,rate,say,slowmode,avatar,8ball```'))                
+            elif self.values[0] == "game":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps```'))
+              
+            elif self.values[0] == "welcw":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:animeWelcome:1034761336334331946>|Games',description='```setchannel,rwchannel```'))
+            elif self.values[0] == "supp":
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:supporter:1034813070708580352>|Support',description='```suggest report```'))              
+    class SelectView(nextcord.ui.View):
+        def __init__(self, *, timeout = 180):
+            super().__init__(timeout=timeout)
+            self.add_item(Select())
+    embed = nextcord.Embed(title='hey wassup?',description='i dont want to say anything:/ just try ur own')
+    
+    embed.set_thumbnail(url=client.user.display_avatar)
+    embed.set_image(url="https://media.discordapp.net/attachments/949881939576389645/1025061501901471794/images_29.jpg")
+
+    
+    await ctx.send(embed=embed,view=SelectView())
+
+
+
+
+@client.slash_command(description = "set slowmode in current channel")
+@commands.has_permissions(administrator=True)
+async def slowmode(ctx, seconds: int):
+    if commands.has_permissions(administrator=True):
+        if not seconds:
+            await ctx.channel.edit(slowmode_delay=0)
+            
+            embed = nextcord.Embed(description=f'slow mode set to 0sec', color=0x60C546)
+            await ctx.send(embed=embed)
+        elif seconds > 21600:
+          
+          embed = nextcord.Embed(description=f'breh 🥴', color=0x60C546)
+          await ctx.send(embed=embed)
+        else:
+            await ctx.channel.edit(slowmode_delay=seconds)
+            
+            embed = nextcord.Embed(description=f' Slowmode set to {seconds} seconds', color=0x60C546)
+            await ctx.send(embed=embed)
+@slowmode.error
+async def slowmode_error(ctx, error):
+    if isinstance(error,commands.CheckFailure):
+        await ctx.send('You do not have permission to use this command!```emaple:#slowmode <time>```')            
+
+
+
+  
+
+
+@client.slash_command(description = "shows member avatar")
+async def avatar(ctx, *, user: nextcord.Member=None):
+  user = user or ctx.author
+  embed = nextcord.Embed(title="AVATAR", description=f"showing {user} avatar")
+  embed.set_image(url=user.display_avatar)
+  embed.set_footer(text="av")
+  await ctx.send(embed=embed)
+
+
+
+
+
+@client.slash_command()
+async def lie(ctx, *, user: nextcord.Member=None):
+  lie = [
+    "lier",
+    "Not a lier"
+  ]
+  user = user or ctx.author
+  embed = nextcord.Embed(title="lier Or not a lier",description=f'{user} is {random.choice(lie)}')
+  
+  embed.set_image(url="https://media.discordapp.net/attachments/999541224975376486/1025383418269290586/images_31.jpg")
+  embed.set_thumbnail(url=user.display_avatar)
+  await ctx.send(embed=embed)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@client.slash_command()
+async def hug(ctx, *, member: nextcord.Member = None):
+  hug = [
+    'https://c.tenor.com/8Jk1ueYnyYUAAAAC/hug.gif',
+    'https://i.pinimg.com/originals/31/d2/3c/31d23cb7e7f199a0524eb2a95eeb6397.gif',
+    'https://c.tenor.com/2VVGNLi-EV4AAAAM/anime-cute.gif'
+    'https://c.tenor.com/5fiWSpLaEe0AAAAC/anime-hug.gif',
+    'https://c.tenor.com/AO-1yttBeH8AAAAC/anime-hug.gif',
+    'https://c.tenor.com/2lr9uM5JmPQAAAAC/hug-anime-hug.gif',
+  'https://c.tenor.com/cFhjNVecNGcAAAAC/anime-hug.gif',
+    'https://c.tenor.com/SIw6C9wrgPUAAAAC/anime-hug.gif',
+    'https://c.tenor.com/1GDpumaCq_4AAAAC/anime-hug.gif'
+]
+
+
+  embed = nextcord.Embed(title = f"{member.name} got a hug by {ctx.author.name}")
+  embed.set_image(url = f"{random.choice(hug)}")
+  await ctx.send(embed=embed)
+
+
+@client.slash_command()
+async def pat(ctx, *, member: nextcord.Member = None):
+  pat = [
+    'https://c.tenor.com/E6fMkQRZBdIAAAAM/kanna-kamui-pat.gif',
+    'https://c.tenor.com/dmYhPDHbbI4AAAAM/misha-misha-necron-anos-voldigoad-the-misfit-of-demon-king-academy-headpat-pat.gif',
+    'https://i.pinimg.com/originals/70/96/0e/70960e87fb9454df6a1d15c96c9ad955.gif',
+    'https://c.tenor.com/lVsnDFq21W8AAAAC/pat-head-anime.gif',
+    'https://c.tenor.com/-hkJYNs7tUkAAAAC/anime-pat.gif',
+    'https://64.media.tumblr.com/tumblr_lps86chQSj1qbvovho1_500.gifv',
+    'https://c.tenor.com/Av63tpT8Y14AAAAC/pat-head.gif'
+    'https://64.media.tumblr.com/80f4e1aeee44dee530b1e6b416a8459d/83ad7e3b43d48041-53/s500x750/ddbb45d884338428dd0f1e042099b353fd3f49b3.gifv'
+
+
+    
+  ]
+  embed = nextcord.Embed(title = f"{member.name} got patted by {ctx.author.name}")
+  embed.set_image(url = f"{random.choice(pat)}")
+  await ctx.send(embed=embed)
+
+
+
+
+@client.slash_command()
+async def slap(ctx, *, member: nextcord.Member = None):
+  slap = [
+    'https://c.tenor.com/CvBTA0GyrogAAAAC/anime-slap.gif',
+    'https://c.tenor.com/Ws6Dm1ZW_vMAAAAC/girl-slap.gif',
+    'https://i.pinimg.com/originals/1c/8f/0f/1c8f0f43c75c11bf504b25340ddd912d.gif',
+    'https://c.tenor.com/fKzRzEiQlPQAAAAC/anime-slap.gif',
+    'https://c.tenor.com/iDdGxlZZfGoAAAAC/powerful-head-slap.gif',
+    'https://i.gifer.com/7zBH.gif',
+    'https://64.media.tumblr.com/743b1aa4147c380f7aee3594b146c8fc/tumblr_mtu1yqvCd51s4bvyoo1_400.gif',
+    'https://c.tenor.com/FJsjk_9b_XgAAAAM/anime-hit.gif',
+    'https://c.tenor.com/Pae1Oya15vYAAAAM/anime-hit.gif'
+  ]
+  embed = nextcord.Embed(title = f"{member.name} got slapped by {ctx.author.name}")
+  embed.set_image(url = f"{random.choice(slap)}")
+  await ctx.send(embed=embed)
+
+
+
+
+
+
+
+
+
+
+
+@client.slash_command(name='8ball',
+            description="Answers a yes/no question.")
+
+async def eight_ball(context, *,msg):
+    possible_responses = [
+
+        ':)',
+        'It is not looking likely',
+        'Too hard to tell',
+        'It is quite possible',
+        'Definitely',
+        'ye',
+        'Maybe so.',
+        'No i doi dont thinkdont think so'
+        'ofc'
+
+    ]
+    await context.channel.send(random.choice(possible_responses))
+
+
+@client.slash_command()
+async def virus(ctx, *, member: nextcord.Member = None):
+  class TestButtons(nextcord.ui.View):
+        def __init__(self, *, timeout=None):
+            super().__init__(timeout=timeout)
+          
+          
+        @nextcord.ui.button(label="connect",style=nextcord.ButtonStyle.green) 
+        async def green_button(self,button:nextcord.ui.Button,interaction:nextcord.Interaction):
+          hi = await interaction.response.send_message("connecting")
+          await asyncio.sleep(2)
+          await hi.edit("connected successfully")
+          await asyncio.sleep(1)
+          await hi.edit("working..")
+          await asyncio.sleep(2)
+          await hi.edit("hacking.......")
+          await asyncio.sleep(2)
+          await hi.edit("we got an issue...solve this problem... 🥴to continue..```7+77```",view = tb())
+          
+         
+  user = ctx.author or member
+  msg = await ctx.send(f"injecting 1000000 virus on {user}")
+  await asyncio.sleep(2)
+  await msg.edit("LOST INTERNET...")
+  await asyncio.sleep(1)
+  await msg.edit("trying to connect again......")
+  await asyncio.sleep(2)
+  await msg.edit("click on buttons to continue",view = TestButtons())
+
+
+
+
+
+
+
+
+@client.slash_command(description = "sends memes")
+async def meme(ctx):
+  
+  memeApi = urllib.request.urlopen('https://meme-api.herokuapp.com/gimme')
+  memeData = json.load(memeApi)
+  memeUrl = memeData['url']
+  memeName = memeData['title']
+  
+  embed = nextcord.Embed(title=f"{memeName}", description="")
+  embed.set_image(url=f'{memeUrl}')
+  view = ta()
+  await ctx.send(embed=embed,view=view)
+
+
+
+  
+
+
+
+
+
+
+
+@client.slash_command(description = "invite bot") 
+async def invite(ctx):
+      await ctx.send("INVITE ME☠️☠️☠️",view=link())
+
+
+
+@client.slash_command()
+async def support(ctx):
+      await ctx.send("SUPPORT☠️☠️☠️",view=SUPPORT())
+
+
+@client.slash_command()
+async def secret(ctx):
+  await ctx.send("click on below link to reveal secret||Listen we r not hackers u can trust us||",view=rick())
+  
+
+@client.slash_command()
+async def uptime(ctx):
+  uptimes = str(datetime.timedelta(seconds=int(round(time.time()-startTime))))
+  await ctx.send(f" {uptimes}")
+@client.slash_command()
+async def vote(ctx):
+  
+  view = topn()
+  
+  await ctx.send("VOTE ME",view=view)
+
+
+
+
+
+@client.slash_command(description = "generates image by context")
+async def genimage(ctx: commands.Context, *, prompt: str):
+    ETA = int(time.time() + 60)
+    msg = await ctx.send(f"Just a moment... ETA : <t:{ETA}:R>")
+    generator = Craiyon()
+    result = generator.generate(prompt)
+    images = result.images
+    
+    for i in images:
+        image = BytesIO(base64.decodebytes(i.encode("utf-8")))
+        return await msg.edit(content = "Content generated by **craiyon.com**", file = nextcord.File(image, "craiyon.png"))
+
+
+
+
+
+@client.slash_command()
+@commands.has_permissions(manage_channels=True)
+async def setchannel(ctx, *, channel: nextcord.TextChannel):
+  cid = {
+    "guild_id":ctx.guild.id,"welcome_id":channel.id
+  }
+  await welcome.insert_one(cid)
+  message = await ctx.send(embed = nextcord.Embed(title=" welcome has successful fully set",description=f"<#{channel.id}>"))
+
+
+
+
+
+@client.slash_command()
+async def leavechannel(ctx, *, channel: nextcord.TextChannel):
+  cid = {
+    "guild_id":ctx.guild.id,"leave_id":channel.id
+  }
+  await leave.insert_one(cid)
+  message = await ctx.send(embed = nextcord.Embed(title=" successfully set leave channel",description=f"<#{channel.id}>"))
+
+
+
+
+
 
 
 client.run(os.getenv('token'))

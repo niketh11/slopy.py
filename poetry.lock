@@ -223,6 +223,17 @@ speed = ["orjson (>=3.5.4)", "aiodns (>=1.1)", "brotli", "cchardet"]
 voice = ["PyNaCl (>=1.3.0,<1.5)"]
 
 [[package]]
+name = "nextwave"
+version = "1.5"
+description = "A  robust and powerful Lavalink wrapper for nextcord and derivatives."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+aiohttp = ">=3.6.0,<4"
+
+[[package]]
 name = "pil-lite"
 version = "0.1.1"
 description = "Python Imaging Library Lite"
@@ -388,7 +399,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "4c394f7cbbbb6fd5d38c5f287bb58955db03d3b20f7ef0eff5fd796642d2540c"
+content-hash = "a113e3a988e111299c4ca9210061f02e0c4955bb7b3b5191dd23a707276e7031"
 
 [metadata.files]
 aiohttp = []
@@ -410,6 +421,7 @@ motor = []
 multidict = []
 nest-asyncio = []
 nextcord = []
+nextwave = []
 pil-lite = []
 pillow = []
 psutil = []
