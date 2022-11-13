@@ -2037,7 +2037,7 @@ async def find(ctx, *, name:str):
     gm = hm['save']
     ph = hm['name']
     await ctx.send(f"""*{ph}*
-    {gm}""")
+    ```{gm}```""")
 
 
 
