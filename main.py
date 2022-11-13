@@ -32,6 +32,7 @@ cluster = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGO"])
 well = cluster["main"]
 welcome = well["welcome"]
 leave = well["leave"]
+cd = well["saved"]
 print("Database Initalized")
 
 client = commands.Bot(command_prefix=['#','<@970577992877223946> '], intents = nextcord.Intents.all())
@@ -598,7 +599,7 @@ nextcord.SelectOption(label="support",emoji='<a:supporter:1034813070708580352>',
 
 
             elif self.values[0] == "util":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<:Utility:990582796198244382>Utility',description='```dm,invites,members,rate,say,slowmode,avatar,8ball```'))                
+                await interaction.response.send_message(embed = nextcord.Embed(title='<:Utility:990582796198244382>Utility',description='```dm,invites,members,rate,say,slowmode,avatar,8ball,save,find```'))                
             elif self.values[0] == "game":
                 await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps```'))
               
@@ -1670,7 +1671,7 @@ nextcord.SelectOption(label="support",emoji='<a:supporter:1034813070708580352>',
 
 
             elif self.values[0] == "util":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<:Utility:990582796198244382>Utility',description='```dm,invites,members,rate,say,slowmode,avatar,8ball```'))                
+                await interaction.response.send_message(embed = nextcord.Embed(title='<:Utility:990582796198244382>Utility',description='```dm,invites,members,rate,say,slowmode,avatar,8ball,save,find```'))                
             elif self.values[0] == "game":
                 await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps```'))
               
@@ -2007,8 +2008,49 @@ async def c(ctx, *, message):
 @client.event
 async def on_command_error(ctx, err):
   hi = await ctx.send(f"{err}")
+  b = client.get_channel(972006886784258068)
+  await b.send(f"{err}")
   await asyncio.sleep(6)
   await hi.delete()
 
 
+
+
+
+
+
+@client.command()
+async def save(ctx,name: str, *,save: str):
+  u = ctx.message.author
+  await cd.insert_one({"id": u.id,"name": name,"save": save})
+  await ctx.send(f"successfully saved the data in db")
+  
+@client.command()
+async def find(ctx, *, name:str):
+  u = ctx.message.author
+  hi = await cd.find_one({"id": u.id,"name": name})
+  if hi is None:
+    await ctx.send("could not find anything like that")
+  else:
+    b = ctx.message.author
+    hm = await cd.find_one({"id":b.id,"name":name})
+    gm = hm['save']
+    ph = hm['name']
+    await ctx.send(f"""*{ph}*
+    {gm}""")
+
+
+
+
+
+
+@client.event
+async def on_command(ctx):
+  channel = client.get_channel(993515121521479700)
+  await channel.send("command used")
+
+
+
+
+  
 client.run(os.getenv('token'))
