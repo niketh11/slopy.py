@@ -589,7 +589,7 @@ nextcord.SelectOption(label="support",emoji='<a:supporter:1034813070708580352>',
             elif self.values[0] == "mod":
                 await interaction.response.send_message(embed = nextcord.Embed(title='<:moderation:990580070466846720>Modration',description = '```kick,Ban,lock,unlock,purge,mute,unmute```'))
             elif self.values[0] == "fun":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret,genimage```'))                
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret,genimage,chat```'))                
 
 
             elif self.values[0] == "action":
@@ -1073,7 +1073,7 @@ async def oru(ctx):
             elif self.values[0] == "fun":
                 await interaction.response.send_message(embed = fun)
             elif self.values[0] == "fuhjn":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret```'))                
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret,genimage,chat```'))                
 
 
             elif self.values[0] == "action":
@@ -1258,11 +1258,7 @@ async def leavechannel(ctx, *, channel: nextcord.TextChannel):
 
 
  
-@client.command()
-async def c(ctx, *, msg):
-  uri = urllib.request.urlopen(f'http://api.brainshop.ai/get?bid=159854&key=hVPPoB6zZUWSiUtP&uid=[uid]&msg={msg}')
-  memeData = json.load(uri)
-  await ctx.send(f"{memeData}")
+
 
 
 
@@ -1665,7 +1661,7 @@ nextcord.SelectOption(label="support",emoji='<a:supporter:1034813070708580352>',
             elif self.values[0] == "mod":
                 await interaction.response.send_message(embed = nextcord.Embed(title='<:moderation:990580070466846720>Modration',description = '```kick,Ban,lock,unlock,purge,mute,unmute```'))
             elif self.values[0] == "fun":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret,genimage```'))                
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:fun:1025273034543730768>Fun',description='```hack,meme,lovecalc,lie,8ball,coinflip,dice, fliptext,virus,wanted,secret,genimage,chat```'))                
 
 
             elif self.values[0] == "action":
@@ -1985,6 +1981,34 @@ async def leavechannel(ctx, *, channel: nextcord.TextChannel):
 
 
 
+@client.command()
+async def chat(ctx, *, message):
+    chat = f'http://api.brainshop.ai/get?bid=153868&key=rcKonOgrUFmn5usX&uid=1&msg={message}'
+    url = chat.replace(" ", "%20")
+    hm = urllib.request.urlopen(url)
+    data = json.load(hm)
+    chatw = data['cnt']
+    await ctx.send(f'''{chatw}''')
+    print(f" {chat}")
+
+
+
+@client.command()
+async def c(ctx, *, message):
+    chat = f'http://api.brainshop.ai/get?bid=153868&key=rcKonOgrUFmn5usX&uid=1&msg={message}'
+    url = chat.replace(" ", "%20")
+    hm = urllib.request.urlopen(url)
+    data = json.load(hm)
+    chatw = data['cnt']
+    await ctx.send(f'''{chatw}''')
+    print(f" {chat}")
+
+
+@client.event
+async def on_command_error(ctx, err):
+  hi = await ctx.send(f"{err}")
+  await asyncio.sleep(6)
+  await hi.delete()
 
 
 client.run(os.getenv('token'))
