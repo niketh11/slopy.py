@@ -604,7 +604,7 @@ nextcord.SelectOption(label="support",emoji='<a:supporter:1034813070708580352>',
                 await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps```'))
               
             elif self.values[0] == "welcw":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<a:animeWelcome:1034761336334331946>|Games',description='```setchannel,rwchannel```'))
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:animeWelcome:1034761336334331946>|Games',description='```setchannel,rwchannel,leavechannel,rlchannel```'))
             elif self.values[0] == "supp":
                 await interaction.response.send_message(embed = nextcord.Embed(title='<a:supporter:1034813070708580352>|Support',description='```suggest report```'))              
     class SelectView(nextcord.ui.View):
@@ -1145,11 +1145,15 @@ def circle(pfp,size = (220,220)):
 @client.command()
 @commands.has_permissions(manage_channels=True)
 async def setchannel(ctx, *, channel: nextcord.TextChannel):
-  cid = {
-    "guild_id":ctx.guild.id,"welcome_id":channel.id
-  }
-  await welcome.insert_one(cid)
-  message = await ctx.send(embed = nextcord.Embed(title=" welcome has successful fully set",description=f"<#{channel.id}>"))
+  data = await welcome.find_one({"guild_id":ctx.guild.id})
+  if data==None:
+    cid = {"guild_id":ctx.guild.id,"welcome_id":channel.id}
+    await welcome.insert_one(cid)
+    message = await ctx.send(embed = nextcord.Embed(title=" welcome has successful fully set",description=f"<#{channel.id}>"))
+  else:
+    await welcome.update_one({"guild_id": ctx.guild.id}, {"$inc": {"welcome_id":channel.id}})
+    await ctx.send("updated welcome channel")
+    
 
 
 
@@ -1167,7 +1171,7 @@ class welccf(nextcord.ui.View):
           ahh = await interaction.response.send_message(embed = nextcord.Embed(title="welcome",description = f"hey ***{interaction.user.name}*** welcome :D we are glad and happy! thanks for joining")) 
           self.stop()
 @client.event
-async def on_member_join(member: nextcord.Member):
+async def on_member_join(member:nextcord.Member):
   data = await welcome.find_one({"guild_id":member.guild.id})
   welcc = data["welcome_id"]
   damnit = client.get_channel(welcc)
@@ -1175,13 +1179,13 @@ async def on_member_join(member: nextcord.Member):
   asset = member.display_avatar.with_size(256)
   data = BytesIO(await asset.read())
   pfp = Image.open(data)
-  pic = pfp.resize((500, 500))
-  
-  
+  pic = pfp.resize((500, 500)) 
+  draw = ImageDraw.Draw(welcce)
+  membername = member.name
+  myFont = ImageFont.truetype('./DrumNBass-ywGy2.ttf', 100)
+  draw.text((850,670),membername,font = myFont,fill = (255,255,255))
   welcce.paste(pic, (850,850))
   welcce.save('welccm.png')
-
-  
   embed = nextcord.Embed(title = "<a:welcome:1034105622586732564>|Welcome",description = f"**Hey!** {member.name} **welcome to this server!**",color=nextcord.Colour.random())
   embed.add_field(name="<a:arrow:1034105896722239578>|start chatting and make new friends",value =":D")
   embed.set_image(url="attachment://welccm.png")
@@ -1191,8 +1195,28 @@ async def on_member_join(member: nextcord.Member):
   view = welccf()
   await damnit.send(content = member.mention,embed = embed,file=nextcord.File("welccm.png"),view = view) 
 
-
-
+@client.event
+async def on_member_remove(member: nextcord.Member):
+  data = await leave.find_one({"guild_id":member.guild.id})
+  b = data["leave_id"]
+  smh = client.get_channel(b)
+  leavee = Image.open('leave.png')
+  asset = member.display_avatar.with_size(256)
+  data = BytesIO(await asset.read())
+  pfp = Image.open(data)
+  pic = pfp.resize((200, 200))
+  pfp = circle(pic,(360,360))
+  draw = ImageDraw.Draw(leavee)
+  membername = member.name
+  myFont = ImageFont.truetype('./DrumNBass-ywGy2.ttf', 80)
+  draw.text((200,126),membername,font = myFont,fill = (255,255,255))
+  leavee.paste(pfp, (850,50))
+  leavee.save('levm.png')
+  embed = nextcord.Embed(title="left",description=f"{member.name}just left the server :(")
+  embed.set_thumbnail(url=member.display_avatar)
+  embed.timestamp = datetime.datetime.utcnow()
+  embed.set_image(url="attachment://levm.png")
+  await smh.send(embed = embed,file=nextcord.File("levm.png")) 
 
 
 
@@ -1231,9 +1255,10 @@ async def report(ctx, *,msg):
 @commands.has_permissions(manage_channels=True)
 async def rwchannel(ctx, *,channel: nextcord.TextChannel):
   data = await welcome.find_one({"welcome_id": channel.id})
+  
   welcc = data["welcome_id"]
-  await welcome.delete_one({'welcome_id': channel.id})
-  ##await ecomoney.update_one({"id": user.id}, {"$inc": {"wallet": +amount, "bank": -amount}})
+  
+  await welcome.update_one({"guild_id": ctx.guild.id}, {"$inc": {"welcome_id": "None"}})
   message = await ctx.send(embed = nextcord.Embed(title=" welcome has successful removed"))
 
 @client.event
@@ -1251,16 +1276,27 @@ async def on_command_error(ctx, err):
 
 @client.command()
 async def leavechannel(ctx, *, channel: nextcord.TextChannel):
-  cid = {
-    "guild_id":ctx.guild.id,"leave_id":channel.id
-  }
-  await leave.insert_one(cid)
-  message = await ctx.send(embed = nextcord.Embed(title=" successfully set leave channel",description=f"<#{channel.id}>"))
+  b = await leave.find_one({"guild_id":ctx.guild.id}) 
+  if b==None:
+    cid = {"guild_id":ctx.guild.id,"leave_id":channel.id}
+    await leave.insert_one(cid)
+    message = await ctx.send(embed = nextcord.Embed(title=" successfully set leave channel",description=f"<#{channel.id}>"))
+  else:
+    await leave.update_one({"guild_id": ctx.guild.id}, {"$inc": {"welcome_id": channel.id}})
+    await ctx.send("successfullu updated leave channel")
+    
 
 
  
-
-
+@client.command()
+@commands.has_permissions(manage_channels=True)
+async def rlchannel(ctx, *,channel: nextcord.TextChannel):
+  data = await leave.find_one({"welcome_id": channel.id})
+  
+  
+  
+  await leave.update_one({"guild_id": ctx.guild.id}, {"$inc": {"leave_id": "None"}})
+  message = await ctx.send(embed = nextcord.Embed(title=" leave has successful removed"))
 
 
 
@@ -1676,7 +1712,7 @@ nextcord.SelectOption(label="support",emoji='<a:supporter:1034813070708580352>',
                 await interaction.response.send_message(embed = nextcord.Embed(title='<a:games:1025277092461559849>Games',description='```rps```'))
               
             elif self.values[0] == "welcw":
-                await interaction.response.send_message(embed = nextcord.Embed(title='<a:animeWelcome:1034761336334331946>|Games',description='```setchannel,rwchannel```'))
+                await interaction.response.send_message(embed = nextcord.Embed(title='<a:animeWelcome:1034761336334331946>|Games',description='```setchannel,rwchannel,leavechannel,rlchannel```'))
             elif self.values[0] == "supp":
                 await interaction.response.send_message(embed = nextcord.Embed(title='<a:supporter:1034813070708580352>|Support',description='```suggest report```'))              
     class SelectView(nextcord.ui.View):
@@ -1977,6 +2013,17 @@ async def leavechannel(ctx, *, channel: nextcord.TextChannel):
   }
   await leave.insert_one(cid)
   message = await ctx.send(embed = nextcord.Embed(title=" successfully set leave channel",description=f"<#{channel.id}>"))
+
+
+
+
+
+
+
+
+
+
+
 
 
 
