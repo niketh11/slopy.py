@@ -23,7 +23,7 @@ import motor.motor_asyncio
 import psutil
 from nextcord.ext.commands import BucketType, cooldown
 import nest_asyncio
-
+from webserver import keep_alive
 
 global startTime
 startTime = time.time()
@@ -2096,8 +2096,6 @@ async def on_command(ctx):
   channel = client.get_channel(993515121521479700)
   await channel.send("command used")
 
-
-
-
+keep_alive()
   
 client.run(os.getenv('token'))

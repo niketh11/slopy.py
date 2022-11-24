@@ -23,6 +23,7 @@ motor = "^3.0.0"
 nest-asyncio = "^1.5.6"
 psutil = "^5.9.3"
 nextwave = "^1.5"
+Flask = "^2.2.2"
 
 
 
